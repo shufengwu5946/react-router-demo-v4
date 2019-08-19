@@ -3,63 +3,35 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Redirect,
+  Switch,
+  Prompt
+} from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
-import Inbox, { Message } from "./Inbox";
+import Inbox from "./Inbox";
+import Error404 from "./Error404";
+
+const getConfirmation = (message, callback) => {
+  console.log(message);
+  const allowTransition = window.confirm(message);
+  callback(allowTransition);
+};
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Route component={App}>
-      
-      {/* <Switch>
-        <div>
-          <Route
-            path="/home"
-            component={Home}
-            onEnter={() => {
-              console.log("Home", "enter");
-            }}
-            onLeave={() => {
-              console.log("Home", "leave");
-            }}
-          />
-          <Route
-            path="/about"
-            component={About}
-            onEnter={() => {
-              console.log("About", "enter");
-            }}
-            onLeave={() => {
-              console.log("About", "leave");
-            }}
-          />
-          <Route
-            path="/inbox"
-            component={Inbox}
-            onEnter={() => {
-              console.log("Inbox", "enter");
-            }}
-            onLeave={() => {
-              console.log("Inbox", "leave");
-            }}
-          >
-            <Route
-              path="/message(/:id)"
-              component={Message}
-              onEnter={() => {
-                console.log("Message", "enter");
-              }}
-              onLeave={() => {
-                console.log("Message", "leave");
-              }}
-            />
-            <Redirect from="message(/:id)" to="/message/(:id)" />
-          </Route>
-        </div>
+  <BrowserRouter getUserConfirmation={getConfirmation}>
+    <App>
+      <Switch>
+        <Route path="/home" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/inbox" component={Inbox} />
+        <Redirect exact from="/" to="/home" />
+        <Route component={Error404} />
       </Switch>
-      <Redirect from="/" to="/home" /> */}
-    </Route>
+    </App>
   </BrowserRouter>,
   document.getElementById("root")
 );

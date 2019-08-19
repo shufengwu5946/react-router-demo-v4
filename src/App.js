@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import ScrollToTop from "./ScrollToTop";
 
 class App extends React.Component {
   render() {
@@ -9,22 +10,24 @@ class App extends React.Component {
         <h1>react-router demo</h1>
         <ul>
           <li>
-            <Link to="/home" activeStyle={{ color: "red" }}>
+            <NavLink to="/home" activeStyle={{ color: "red" }}>
               Home
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/about" activeStyle={{ color: "red" }}>
+            <NavLink to="/about" activeStyle={{ color: "red" }}>
               About
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/inbox" activeStyle={{ color: "red" }}>
+            <NavLink to="/inbox" activeStyle={{ color: "red" }}>
               Inbox
-            </Link>
+            </NavLink>
           </li>
         </ul>
-        {this.props.children}
+        <div style={{ height: 300, overflowY: "auto" }}>
+          <ScrollToTop>{this.props.children}</ScrollToTop>
+        </div>
       </div>
     );
   }
